@@ -1,17 +1,11 @@
 import { Sequelize } from 'sequelize-typescript';
+import { databaseConfig } from './database.config';
 
 export const databaseProviders = [
   {
     provide: 'SEQUELIZE',
     useFactory: async () => {
-      const sequelize = new Sequelize({
-        dialect: 'postgres',
-        host: 'localhost',
-        port: 5432,
-        username: 'root',
-        password: 'password',
-        database: 'nest',
-      });
+      const sequelize = new Sequelize(databaseConfig.development);
       sequelize.addModels([]);
       await sequelize.sync();
       return sequelize;
